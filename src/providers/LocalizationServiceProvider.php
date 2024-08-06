@@ -3,9 +3,9 @@
 namespace Megaads\LaravelLocalization\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Megaads\Localization\Commands\GenerateLanguageCommand;
-use Megaads\Localization\Commands\PublishConfigCommand;
-use Megaads\Localization\Middlewares\LocalizationAuthMiddleware;
+use Megaads\LaravelLocalization\Commands\GenerateLanguageCommand;
+use Megaads\LaravelLocalization\Commands\PublishConfigCommand;
+use Megaads\LaravelLocalization\Middlewares\LocalizationAuthMiddleware;
 use Illuminate\Routing\Router;
 
 class LocalizationServiceProvider extends ServiceProvider {
@@ -29,7 +29,7 @@ class LocalizationServiceProvider extends ServiceProvider {
             $router = $this->app['router'];
             $router->aliasMiddleware('auth.localizaion-lang', LocalizationAuthMiddleware::class);
         } else {
-            $router->middleware('auth.localizaion-lang', 'Megaads\Localization\Middlewares\LocalizationAuthMiddleware');
+            $router->middleware('auth.localizaion-lang', 'Megaads\LaravelLocalization\Middlewares\LocalizationAuthMiddleware');
         }
 
         if (!empty($framework) && $framework['key'] == 'laravel/framework' && $framework['version'] >= 52 ) {

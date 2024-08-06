@@ -2,7 +2,7 @@
 
 
 Route::group(['middleware' => ['auth.localizaion-lang'], 
-    'namespace' => 'Megaads\Localization\Controllers'
+    'namespace' => 'Megaads\LaravelLocalization\Controllers'
 ], function () {
     Route::get('/lang-editor', [
             'as' => 'frontend::multilanguage::editor', 
@@ -20,7 +20,7 @@ Route::group(['middleware' => ['auth.localizaion-lang'],
 Route::group([
     'middleware' => ['auth.localizaion-lang'],
     'prefix' => 'localization/api',
-    'namespace' => 'Megaads\Localization\Controllers'
+    'namespace' => 'Megaads\LaravelLocalization\Controllers'
 ], function () {
     Route::get('/list-language', [
         'as' => 'frontend::multilanguage::list', 
