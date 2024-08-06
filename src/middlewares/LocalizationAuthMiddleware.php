@@ -1,6 +1,6 @@
 <?php
 
-namespace Megaads\Localization\Middlewares;
+namespace Megaads\LaravelLocalization\Middlewares;
 
 use Closure;
 use Config;

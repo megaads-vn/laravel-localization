@@ -1,5 +1,5 @@
 <?php
-namespace Megaads\Localization\Contracts;
+namespace Megaads\LaravelLocalization\Contracts;
 
 use Dotenv;
 

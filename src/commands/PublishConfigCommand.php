@@ -1,5 +1,5 @@
 <?php 
-namespace Megaads\Localization\Commands;
+namespace Megaads\LaravelLocalization\Commands;
 
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;

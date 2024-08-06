@@ -1,5 +1,5 @@
 <?php 
-namespace Megaads\Localization\Controllers;
+namespace Megaads\LaravelLocalization\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
