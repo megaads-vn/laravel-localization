@@ -1,6 +1,6 @@
 <?php
 
-namespace MegaAds\Localization\Providers;
+namespace Megaads\Localization\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Megaads\Localization\Commands\GenerateLanguageCommand;
