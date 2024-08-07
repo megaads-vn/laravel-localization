@@ -33,17 +33,17 @@ class LocalizationServiceProvider extends ServiceProvider {
         }
 
         if (!empty($framework) && $framework['key'] == 'laravel/framework' && $framework['version'] >= 52 ) {
-            include $this->basePath . 'routes/web.php';
+            include $this->basePath . 'Routes/web.php';
         } else {  
             if ( method_exists($this, 'routesAreCached') ) {
                 if (!$this->app->routesAreCached()) {
-                    include $this->basePath . 'routes/web.php';
+                    include $this->basePath . 'Routes/web.php';
                 }
             }
         }
 
 
-        $this->loadViewsFrom($this->basePath . '/resources/views', 'localization');
+        $this->loadViewsFrom($this->basePath . '/Resources/views', 'localization');
         $this->publishResources();
     }
 
@@ -59,14 +59,14 @@ class LocalizationServiceProvider extends ServiceProvider {
     private function publishConfig()
     {
         if (function_exists('config_path')) {
-            $path = $this->basePath . 'config/localization.php';
+            $path = $this->basePath . 'Config/localization.php';
             $this->publishes([$path => config_path('localization.php')], 'config');
         }
     }
 
     private function publishResources() {
         $this->publishes([
-            $this->basePath . 'resources/assets/' => public_path('vendor/localization/assets'),
+            $this->basePath . 'Resources/assets/' => public_path('vendor/localization/assets'),
         ], 'assets');
     }
 
