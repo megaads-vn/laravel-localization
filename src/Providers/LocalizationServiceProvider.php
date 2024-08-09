@@ -5,6 +5,7 @@ namespace Megaads\LaravelLocalization\Providers;
 use Illuminate\Support\ServiceProvider;
 use Megaads\LaravelLocalization\Commands\GenerateLanguageCommand;
 use Megaads\LaravelLocalization\Commands\PublishConfigCommand;
+use Megaads\LaravelLocalization\Commands\PublishResourceCommand;
 use Megaads\LaravelLocalization\Middlewares\LocalizationAuthMiddleware;
 use Illuminate\Routing\Router;
 
@@ -13,7 +14,8 @@ class LocalizationServiceProvider extends ServiceProvider {
     protected $basePath = __DIR__ . '/../../';
     protected $commandClasses = [
         GenerateLanguageCommand::class,
-        PublishConfigCommand::class
+        PublishConfigCommand::class,
+        PublishResourceCommand::class
     ];
 
     public function __construct($app)
@@ -42,7 +44,7 @@ class LocalizationServiceProvider extends ServiceProvider {
             }
         }
 
-
+        $this->registerMiddleware('Megaads\LaravelLocalization\Middlewares\OverwriteLocalizationMiddleware');
         $this->loadViewsFrom($this->basePath . '/Resources/views', 'localization');
         $this->publishResources();
     }
@@ -51,6 +53,14 @@ class LocalizationServiceProvider extends ServiceProvider {
     {
         $this->commands($this->commandClasses);
         $this->publishConfig();
+    }
+
+    /**
+     * @param $middleware
+     */
+    private function registerMiddleware($middleware) {
+        $kernel = $this->app['Illuminate\Contracts\Http\Kernel'];
+        $kernel->pushMiddleware($middleware);
     }
 
     /**

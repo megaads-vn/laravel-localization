@@ -5,20 +5,20 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Illuminate\Support\Facades\Artisan;
 
-class PublishConfigCommand extends AbtractCommand {
+class PublishResourceCommand extends AbtractCommand {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'localization:config:publish';
+    protected $name = 'localization:resource:publish';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Publish localization config file';
+    protected $description = 'Publish localization resource file';
 
     public function getOptions() {
         return [
@@ -35,12 +35,13 @@ class PublishConfigCommand extends AbtractCommand {
     public function handle() {
         $force = $this->option('force');
         $this->response([
+
             'status' => 'successful',
-            'message' => 'Publish localization config file'
+            'message' => 'Publish localization resources file'
         ]);
         Artisan::call('vendor:publish', [
             '--provider' => 'Megaads\LaravelLocalization\Providers\LocalizationServiceProvider',
-            '--tag' => 'config',
+            '--tag' => 'assets',
             '--force' => $force
         ]);
         $output = Artisan::output();
