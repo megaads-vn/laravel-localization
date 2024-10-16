@@ -28,16 +28,18 @@ class EnvironmentOverwrite {
     }
 
     private function loadNewLocaleEnv($app, $envFile) {
-        $app->detectEnvironment(function () use ($envFile) {
-            $dotenv = new Dotenv\Dotenv(app()->environmentPath(), $envFile);
-            $dotenv->overload();
-            // $lang = env('APP_LOCALE_LANG', 'en_US');
-            // putenv('LANG=' . $lang);
-            // setlocale(LC_ALL, $lang);
-            // $domain = 'messages';
-            // $localedir = dirname(__FILE__) . '/../' . env('APP_LOCALES_DIR', 'resources/lang');
-            // bindtextdomain($domain, $localedir);
-            // textdomain($domain);
-        });
+        if (file_exists(base_path($envFile))) {
+            $app->detectEnvironment(function () use ($envFile) {
+                $dotenv = new Dotenv\Dotenv(app()->environmentPath(), $envFile);
+                $dotenv->overload();
+                // $lang = env('APP_LOCALE_LANG', 'en_US');
+                // putenv('LANG=' . $lang);
+                // setlocale(LC_ALL, $lang);
+                // $domain = 'messages';
+                // $localedir = dirname(__FILE__) . '/../' . env('APP_LOCALES_DIR', 'resources/lang');
+                // bindtextdomain($domain, $localedir);
+                // textdomain($domain);
+            });
+        }
     }
 }
