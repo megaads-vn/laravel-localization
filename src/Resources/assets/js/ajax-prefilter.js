@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function(){
             var isContainHostName = requestUrl && requestUrl.includes(originUrl.origin);
             //k phai domain khac
             var isContainHttp = requestUrl && requestUrl.includes("http");
-            if (isContainHostName) {
+            if (isContainHostName && typeof localePrefix != 'undefined' && localePrefix !== '' && requestUrl.includes(localePrefix) == false) {
                 requestUrl = requestUrl.replace(originUrl.hostname, originUrl.hostname + "/" + localePrefix);
             } else if (!isContainHttp) {
                 if (requestUrl.charAt(0) != "/") {
