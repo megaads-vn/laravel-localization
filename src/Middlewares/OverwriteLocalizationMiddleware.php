@@ -62,7 +62,7 @@ class OverwriteLocalizationMiddleware
             //         $libPos = strripos($content, $matches[0]);
             //         $libPos = $libPos + strlen($matches[0]);
             //         if (false !== $libPos) {
-            //           $content = substr($content, 0, $libPos) . '<script type="text/javascript" src="' .  ('/modules/localization/js/ajax-prefilter.js') . '?v=' . config('sa.version') .'"></script>' . substr($content, $libPos);
+            //           $content = substr($content, 0, $libPos) . '<script type="text/javascript" src="' .  ('/modules/localization/js/ajax-prefilter.js') . '?v=' . config('app.version') .'"></script>' . substr($content, $libPos);
             //           $ajaxPrefilterIncluded = true;
             //         }  
             //     }
@@ -114,7 +114,7 @@ class OverwriteLocalizationMiddleware
         $retval = '';
         if (count($files) > 0) {
             foreach ($files as $file) {
-                $retval .= '<script type="text/javascript" src="' . $file . '?v=' . config('sa.version') . '"></script>';
+                $retval .= '<script type="text/javascript" src="' . $file . '?v=' . config('app.version') . '"></script>';
             }
         }
         return $retval;
@@ -130,11 +130,11 @@ class OverwriteLocalizationMiddleware
         if (count($files) > 0) {
             foreach ($files as $file) {
                 if (str_contains($file, '/modules/localization/css/app-module.css')) {
-                    $retval .= '<link rel="preload" href="' . $file . '?v=' . config('sa.version') . '" as="style" onload="this.onload=null;this.rel=\'stylesheet\'"><noscript><link rel="stylesheet" href="' . $file . '?v=' . config('sa.version') . '" ></noscript>';
+                    $retval .= '<link rel="preload" href="' . $file . '?v=' . config('app.version') . '" as="style" onload="this.onload=null;this.rel=\'stylesheet\'"><noscript><link rel="stylesheet" href="' . $file . '?v=' . config('app.version') . '" ></noscript>';
                 } else {
-                    $retval .= '<link rel="stylesheet" href="' . $file . '?v=' . config('sa.version') . '" >';
+                    $retval .= '<link rel="stylesheet" href="' . $file . '?v=' . config('app.version') . '" >';
                 }
-                // $retval .= '<link rel="preload" href="' . $file . '?v=' . config('sa.version') . '" as="style" onload="this.onload=null;this.rel=\'stylesheet\'"><noscript><link rel="stylesheet" href="' . $file . '?v=' . config('sa.version') . '" ></noscript>';
+                // $retval .= '<link rel="preload" href="' . $file . '?v=' . config('app.version') . '" as="style" onload="this.onload=null;this.rel=\'stylesheet\'"><noscript><link rel="stylesheet" href="' . $file . '?v=' . config('app.version') . '" ></noscript>';
             }
         }
         return $retval;
