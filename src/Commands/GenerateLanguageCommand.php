@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Megaads\LaravelLocalization\Commands;
 
 use Symfony\Component\Console\Input\InputOption;
@@ -11,7 +11,7 @@ class GenerateLanguageCommand extends AbtractCommand {
      * @var string
      */
     protected $name = 'localization:lang:generate';
-    
+
 
     /**
      * The console command description.
@@ -24,7 +24,7 @@ class GenerateLanguageCommand extends AbtractCommand {
      * Get the console command arguments.
      * @return array
      */
-     public function getArguments() {
+    public function getArguments() {
         return [
             ['lang', InputArgument::REQUIRED, 'Locale character. It\'s was configure in env file with named APP_LANG'],
         ];
@@ -49,8 +49,9 @@ class GenerateLanguageCommand extends AbtractCommand {
         $scanPath = ['resources/views', 'app/Http'];
         $viewsPath = [];
         foreach ($scanPath as $path) {
-            $viewsPath += $this->listFolderFiles(base_path($path));
+            $viewsPath = array_merge($viewsPath, $this->readDirs(base_path($path)));
         }
+
         if (!empty($viewsPath)) {
             foreach ($viewsPath as $viewPath) {
                 $fileContent = file_get_contents($viewPath);
@@ -70,6 +71,7 @@ class GenerateLanguageCommand extends AbtractCommand {
                             $formatedData[] = $match;
                         }
                     }
+
                     $this->writeContentToFile($outFile, $formatedData);
                 }
             }
@@ -78,7 +80,7 @@ class GenerateLanguageCommand extends AbtractCommand {
     }
 
     /**
-     * 
+     *
      */
     protected function writeContentToFile($outFile, $writeData)
     {
@@ -109,8 +111,8 @@ class GenerateLanguageCommand extends AbtractCommand {
 
     /**
      * Check output file is exists
-     * 
-     * 
+     *
+     *
      */
     protected function checkOutputFile($fileName)
     {
@@ -131,7 +133,7 @@ class GenerateLanguageCommand extends AbtractCommand {
 
     /**
      * List all files in a directory and subs
-     * 
+     *
      */
     protected function readDirs($path)
     {
@@ -141,7 +143,9 @@ class GenerateLanguageCommand extends AbtractCommand {
             $newPath = $path . "/" . $item;
             if (is_dir($newPath) && $item != '.' && $item != '..') {
                 $dirPath = $this->readDirs($newPath);
-                $allPath = $allPath + $dirPath;
+                if (!empty($dirPath)) {
+                    $allPath = array_merge($allPath, $dirPath);
+                }
             } else {
                 if ($item != '.' && $item != '..') {
                     $fullPath = $newPath;
@@ -153,7 +157,7 @@ class GenerateLanguageCommand extends AbtractCommand {
     }
 
     /**
-     * 
+     *
      */
     protected function listFolderFiles($dir){
         $retval = [];
@@ -178,6 +182,7 @@ class GenerateLanguageCommand extends AbtractCommand {
         $allowExtension = ['php', 'html', 'js'];
         foreach($ffs as $ff){
             $ext = pathinfo($ff, PATHINFO_EXTENSION);
+            echo $ff . '--' . $ff . "\n";
             if ( is_file($dir . '/' . $ff) && $ext != '' && in_array($ext, $allowExtension) ) {
                 $filePath = $dir . "/" . $ff ;
                 $retval[] = $filePath;
@@ -193,7 +198,6 @@ class GenerateLanguageCommand extends AbtractCommand {
                 }
             }
         }
-
         return $retval;
     }
 
